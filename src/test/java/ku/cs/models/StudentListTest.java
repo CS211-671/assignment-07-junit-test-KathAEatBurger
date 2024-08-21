@@ -5,24 +5,25 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserListTest {
-
+class StudentListTest {
     @Test
     @DisplayName("User should be found in UserList")
     public void testUserListFindUser() {
         // TODO: add 3 users to UserList
-        User user1 = new User("6xxxxxxx1", "student1");
-        User user2 = new User("6xxxxxxx2", "student2");
-        User user3 = new User("6xxxxxxx3", "student3");
+        StudentList student = new StudentList();
+        student.addNewStudent("6xxxxxxxx1", "student1");
+        student.addNewStudent("6xxxxxxxx2", "student2");
+        student.addNewStudent("6xxxxxxxx3", "student3");
 
         // TODO: find one of them
-
-
+        student.findStudentById("6xxxxxxxx3");
 
         // TODO: assert that UserList found User
         // String expected = "<one of username>";
         // String actual = user.getUsername();
         // assertEquals(expected, actual);
+        assertEquals("student3", student.getStudents());
+
     }
 
     @Test
