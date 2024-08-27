@@ -6,57 +6,61 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentListTest {
+
     @Test
-    @DisplayName("User should be found in UserList")
-    public void testUserListFindUser() {
-        // TODO: add 3 users to UserList
-        StudentList student = new StudentList();
-        student.addNewStudent("6xxxxxxxx1", "student1");
-        student.addNewStudent("6xxxxxxxx2", "student2");
-        student.addNewStudent("6xxxxxxxx3", "student3");
+    @DisplayName("Student should be found in StudentList")
+    public void testStudentListFindStudent() {
+        StudentList studentList = new StudentList();
+        studentList.addNewStudent("6xxxxxxxx1", "student1", "password1");
+        studentList.addNewStudent("6xxxxxxxx2", "student2", "password2");
+        studentList.addNewStudent("6xxxxxxxx3", "student3", "password3");
 
-        // TODO: find one of them
-        student.findStudentById("6xxxxxxxx3");
+        Student foundStudent = studentList.findStudentById("6xxxxxxxx3");
 
-        // TODO: assert that UserList found User
-        // String expected = "<one of username>";
-        // String actual = user.getUsername();
-        // assertEquals(expected, actual);
-        assertEquals("student3", student.getStudents());
-
+        assertNotNull(foundStudent, "Student should be found");
+        assertEquals("student3", foundStudent.getName(), "Student name should match");
     }
 
     @Test
-    @DisplayName("User can change password")
-    public void testUserCanChangePassword() {
-        // TODO: add 3 users to UserList
+    @DisplayName("Student can change password")
+    public void testStudentCanChangePassword() {
+        StudentList studentList = new StudentList();
+        studentList.addNewStudent("6xxxxxxxx1", "student1", "password1");
 
-        // TODO: change password of one user
+        boolean isPasswordChanged = studentList.changePassword("6xxxxxxxx1", "password1", "newPassword");
 
-        // TODO: assert that user can change password
-        // assertTrue(actual);
+        assertTrue(isPasswordChanged, "Password should be changed successfully");
+
+        Student student = studentList.login("6xxxxxxxx1", "newPassword");
+        assertNotNull(student, "Student should be logged in with the new password");
+        assertEquals("6xxxxxxxx1", student.getId(), "Student ID should match");
     }
 
     @Test
-    @DisplayName("User with correct password can login")
-    public void testUserListShouldReturnObjectIfUsernameAndPasswordIsCorrect() {
-        // TODO: add 3 users to UserList
+    @DisplayName("Student with correct password can login")
+    public void testStudentListShouldReturnObjectIfIdAndPasswordIsCorrect() {
+        StudentList studentList = new StudentList();
+        studentList.addNewStudent("6xxxxxxxx1", "student1", "password1");
+        studentList.addNewStudent("6xxxxxxxx2", "student2", "password2");
+        studentList.addNewStudent("6xxxxxxxx3", "student3", "password3");
 
-        // TODO: call login() with correct username and password
+        Student student = studentList.login("6xxxxxxxx2", "password2");
 
-        // TODO: assert that User object is found
-        // assertEquals(expected, actual);
+        assertNotNull(student, "Student should be logged in successfully");
+        assertEquals("6xxxxxxxx2", student.getId(), "Student ID should match");
     }
 
     @Test
-    @DisplayName("User with incorrect password cannot login")
-    public void testUserListShouldReturnNullIfUsernameAndPasswordIsIncorrect() {
-        // TODO: add 3 users to UserList
+    @DisplayName("Student with incorrect password cannot login")
+    public void testStudentListShouldReturnNullIfIdAndPasswordIsIncorrect() {
+        StudentList studentList = new StudentList();
+        studentList.addNewStudent("6xxxxxxxx1", "student1", "password1");
+        studentList.addNewStudent("6xxxxxxxx2", "student2", "password2");
+        studentList.addNewStudent("6xxxxxxxx3", "student3", "password3");
 
-        // TODO: call login() with incorrect username or incorrect password
+        Student student = studentList.login("6xxxxxxxx2", "wrongPassword");
 
-        // TODO: assert that the method return null
-        // assertNull(actual);
+        assertNull(student, "Login should fail with incorrect password");
     }
 
 }

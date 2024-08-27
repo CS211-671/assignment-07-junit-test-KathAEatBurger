@@ -4,17 +4,17 @@ public class Student {
     private String id;
     private String name;
     private double score;
+    private String password;
 
     public Student(String id, String name) {
-        this.id = id;
-        this.name = name;
-        score = 0;
+        this(id, name, 0, "");
     }
 
-    public Student(String id, String name, double score) {
+    public Student(String id, String name, double score, String password) {
         this.id = id;
         this.name = name;
         this.score = score;
+        this.password = password;
     }
 
     public void changeName(String name) {
@@ -29,25 +29,12 @@ public class Student {
         }
     }
 
-    public String grade()
-    {
-        String grade = "";
-        if  (score >= 80) {
-            grade = "A";
-        }
-        if (score >= 70 && score < 80) {
-            grade = "B";
-        }
-        if (score >= 60 && score < 70) {
-            grade = "C";
-        }
-        if (score >= 50 && score < 60) {
-            grade = "D";
-        }
-        if (score < 50) {
-            grade = "F";
-        }
-        return grade;
+    public String grade() {
+        if (score >= 80) return "A";
+        if (score >= 70) return "B";
+        if (score >= 60) return "C";
+        if (score >= 50) return "D";
+        return "F";
     }
 
     public boolean isId(String id) {
@@ -64,6 +51,18 @@ public class Student {
 
     public double getScore() {
         return score;
+    }
+
+    public boolean changePassword(String oldPassword, String newPassword) {
+        if (this.password.equals(oldPassword) && !newPassword.trim().isEmpty()) {
+            this.password = newPassword.trim();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
     }
 
     @Override

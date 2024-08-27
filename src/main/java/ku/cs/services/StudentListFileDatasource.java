@@ -70,7 +70,7 @@ public class StudentListFileDatasource implements Datasource<StudentList> {
                 double score = Double.parseDouble(data[2].trim());
 
                 // เพิ่มข้อมูลลงใน list
-                students.addNewStudent(id, name, score);
+                students.addNewStudent(id, name, String.valueOf(score));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
